@@ -224,6 +224,13 @@ fun GeneralSettingsScreen(
                     )
                 }
             }
+
+            item {
+                DefaultMagnetHandlerPreference()
+            }
         }
     }
 }
+
+@Composable
+expect fun DefaultMagnetHandlerPreference()
