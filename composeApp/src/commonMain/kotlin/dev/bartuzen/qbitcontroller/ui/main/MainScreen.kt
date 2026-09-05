@@ -65,6 +65,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.bartuzen.qbitcontroller.data.ServerManager
+import dev.bartuzen.qbitcontroller.data.SettingsManager
 import dev.bartuzen.qbitcontroller.ui.log.LogsNavHost
 import dev.bartuzen.qbitcontroller.ui.rss.RssNavHost
 import dev.bartuzen.qbitcontroller.ui.search.SearchNavHost
@@ -107,8 +108,20 @@ fun MainScreen(navigationFlow: Flow<DeepLinkDestination>? = null) {
         }
 
         val serverManager = koinInject<ServerManager>()
+        val settingsManager = koinInject<SettingsManager>()
         var currentServer by rememberSaveable(stateSaver = jsonSaver()) {
-            mutableStateOf(serverManager.serversFlow.value.firstOrNull())
+            val servers = serverManager.serversFlow.value
+            mutableStateOf(
+                if (settingsManager.rememberLastSelectedServer.value) {
+                    val lastSelectedId = serverManager.lastSelectedServerId
+                    servers.find { it.id == lastSelectedId } ?: servers.firstOrNull()
+                } else {
+                    servers.firstOrNull()
+                },
+            )
+        }
+        LaunchedEffect(currentServer) {
+            currentServer?.let { serverManager.lastSelectedServerId = it.id }
         }
         DisposableEffect(serverManager) {
             val serversFlow = serverManager.serversFlow

@@ -29,6 +29,7 @@ open class SettingsManager(
     val areTorrentSwipeActionsEnabled = preference(settings, "areTorrentSwipeActionsEnabled", true)
     val trafficStatsInList = preference(settings, "trafficStatsInList", TrafficStats.NONE)
     val hideServerUrls = preference(settings, "hideServerUrls", false)
+    val rememberLastSelectedServer = preference(settings, "rememberLastSelectedServer", false)
 
     val defaultTorrentStatus = preference(settings, "defaultTorrentState", TorrentFilter.ALL)
     val areStatesCollapsed = preference(settings, "areStatesCollapsed", false)

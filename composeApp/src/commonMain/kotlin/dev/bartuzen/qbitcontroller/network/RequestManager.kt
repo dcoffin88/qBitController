@@ -108,6 +108,7 @@ class RequestManager(
                     credentials {
                         BasicAuthCredentials(basicAuth.username, basicAuth.password)
                     }
+                    sendWithoutRequest { true }
                 }
             }
         }

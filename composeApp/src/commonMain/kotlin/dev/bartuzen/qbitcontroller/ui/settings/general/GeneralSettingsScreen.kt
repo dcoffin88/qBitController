@@ -51,6 +51,7 @@ import qbitcontroller.composeapp.generated.resources.settings_hide_server_urls
 import qbitcontroller.composeapp.generated.resources.settings_hide_server_urls_desc
 import qbitcontroller.composeapp.generated.resources.settings_notification_check_interval
 import qbitcontroller.composeapp.generated.resources.settings_notification_check_interval_description
+import qbitcontroller.composeapp.generated.resources.settings_remember_last_selected_server
 import qbitcontroller.composeapp.generated.resources.settings_traffic_stats_in_list
 import qbitcontroller.composeapp.generated.resources.settings_traffic_stats_in_list_complete
 import qbitcontroller.composeapp.generated.resources.settings_traffic_stats_in_list_none
@@ -94,6 +95,15 @@ fun GeneralSettingsScreen(
             contentPadding = innerPadding,
             modifier = Modifier.fillMaxSize(),
         ) {
+            item {
+                val rememberLastSelectedServer by viewModel.rememberLastSelectedServer.flow.collectAsStateWithLifecycle()
+                SwitchPreference(
+                    value = rememberLastSelectedServer,
+                    onValueChange = { viewModel.rememberLastSelectedServer.value = it },
+                    title = { Text(text = stringResource(Res.string.settings_remember_last_selected_server)) },
+                )
+            }
+
             item {
                 val hideServerUrls by viewModel.hideServerUrls.flow.collectAsStateWithLifecycle()
                 SwitchPreference(

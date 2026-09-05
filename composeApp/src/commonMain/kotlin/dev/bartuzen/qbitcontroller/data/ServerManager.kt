@@ -74,6 +74,12 @@ class ServerManager(
         _serversFlow.value = updatedServerConfigs
     }
 
+    var lastSelectedServerId: Int?
+        get() = serverSettings[Keys.LastSelectedServerId, -1].takeIf { it != -1 }
+        set(value) {
+            serverSettings[Keys.LastSelectedServerId] = value ?: -1
+        }
+
     private val listeners = mutableListOf<ServerListener>()
 
     fun addServerListener(
@@ -111,5 +117,6 @@ class ServerManager(
     private object Keys {
         const val ServerConfigs = "serverConfigs"
         const val LastServerId = "lastServerId"
+        const val LastSelectedServerId = "lastSelectedServerId"
     }
 }

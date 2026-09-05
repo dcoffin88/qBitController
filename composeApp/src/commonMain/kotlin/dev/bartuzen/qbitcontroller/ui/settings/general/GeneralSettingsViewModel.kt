@@ -6,6 +6,7 @@ import dev.bartuzen.qbitcontroller.data.SettingsManager
 class GeneralSettingsViewModel(
     settingsManager: SettingsManager,
 ) : ViewModel() {
+    var rememberLastSelectedServer = settingsManager.rememberLastSelectedServer
     var hideServerUrls = settingsManager.hideServerUrls
     var notificationCheckInterval = settingsManager.notificationCheckInterval
     var areTorrentSwipeActionsEnabled = settingsManager.areTorrentSwipeActionsEnabled
